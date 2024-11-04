@@ -17,14 +17,14 @@ class Character:
         self.height = self.image.get_height()
         self.jumping = False
         self.can_jump = False
-        # for i in range(1, 5):
-        #     img = pygame.image.load("./assets/img/Ark.gif").convert()
-        #     # os.path.join('images', 'hero' + str(i) + '.png')
-        #     img.convert_alpha()
-        #     img.set_colorkey(ALPHA)
-        #     self.images.append(img)
-        #     self.image = self.images[0]
-        #     self.rect = self.image.get_rect()
+        for i in range(1, 5):
+            img = pygame.image.load("main-char/carotte1.png").convert()
+            # os.path.join('images', 'hero' + str(i) + '.png')
+            img.convert_alpha()
+            img.set_colorkey((0, 0, 0))
+            self.images.append(img)
+            self.image = self.images[0]
+            self.rect = self.image.get_rect()
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
     def gravity(self):
@@ -34,7 +34,7 @@ class Character:
             self.can_jump = True
     def move(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]  and self.can_jump:
+        if keys[pygame.K_SPACE] and self.can_jump:
             self.vel_y = -15
             self.can_jump = False
             self.y = 200
@@ -44,7 +44,7 @@ class Character:
             self.x += 300 * dt
 
 
-player = Character("assets/img/Ark.gif", 100, 100) 
+player = Character("main-char/carotte1.png", 100, 100)
 
 
 
@@ -58,7 +58,7 @@ while running:
     dt = clock.tick(60) / 1000
 
     player.draw(screen)
-    player.gravity(0)
+    player.gravity()
     player.move()
     pygame.display.update()
     clock.tick(60) 
