@@ -17,14 +17,14 @@ class Character:
         self.height = self.image.get_height()
         self.jumping = False
         self.can_jump = False
-        for i in range(1, 5):
-            img = pygame.image.load("main-char/carotte1.png").convert()
-            # os.path.join('images', 'hero' + str(i) + '.png')
-            img.convert_alpha()
-            img.set_colorkey((0, 0, 0))
-            self.images.append(img)
-            self.image = self.images[0]
-            self.rect = self.image.get_rect()
+        # for i in range(1, 5):
+        #     img = pygame.image.load("main-char/carotte1.png").convert()
+        #     # os.path.join('images', 'hero' + str(i) + '.png')
+        #     img.convert_alpha()
+        #     img.set_colorkey((0, 0, 0))
+        #     self.images.append(img)
+        #     self.image = self.images[0]
+        #     self.rect = self.image.get_rect()
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
     def gravity(self):
