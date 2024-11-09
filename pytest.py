@@ -23,6 +23,7 @@ class World:
         self.fullRectsX = []
         self.emptyRectsY = []
         self.emptyRectsX = []
+        self.gravity = 3500
         self.pattern = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -37,6 +38,7 @@ class World:
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -47,8 +49,7 @@ class World:
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -80,49 +81,68 @@ class Character:
         self.x = x
         self.y = y
         self.can_jump = False
-        self.vel_y = 1
+        self.jumpSpeed = -1000
+        self.speed = 600
+        self.vel_y = 30
 
     def draw(self):
         screen.blit(self.image, (self.x, self.y))
 
-    def gravity(self):
+    def setGravity(self):
         self.worldX = round((self.x - world.x) // 30)
         self.worldY = round((self.y - world.y) // 30)
-        self.worldHeight = round((self.height - world.y) // 30 )
-        self.y += self.vel_y
-        self.vel_y = self.vel_y * 1.1
+        self.worldHeight = math.ceil(self.height / 30)
+        self.vel_y += world.gravity * dt
+        self.y += self.vel_y * dt
         for y in range(len(world.pattern)):
             for x in range(len(world.pattern[y])):
-                if self.worldY + self.worldHeight >= y and self.worldX == x and world.pattern[y][x] == 1:
-                    print(f"Position calculée pour collision : {y * 30 - self.worldHeight * 30}")
-                    self.y = (y * 30 - self.worldHeight * 30) - self.worldHeight
-                    self.vel_y = 0
-                if self.worldY + self.worldHeight >= y and self.worldX == x and world.pattern[y][x] == 0:
-                    self.y += self.vel_y
+                if world.pattern[y][x] == 1:
+                # Si la case est un obstacle:
+                    if self.worldX == x:
+                        if self.vel_y >= 0:
+                        # Si le personnage est en train de tomber ou est au sol:
+                            if self.worldY + self.worldHeight >= y:
+                            # Si le bas du personnage touche un obstacle:
+                                self.y = y * 30 - self.height
+                                self.vel_y = 0
+                                self.can_jump = True
+                            elif y <= self.worldY:
+                            # Si le haut du personnage touche un obstacle:
+                                print("c'est cette condition !")
+                                self.y = (y + 1) * 30
+                                self.vel_y = 0
+                        if self.vel_y < 0:
+                        #  Si le personnage est en train de sauter:
+                            if self.worldY <= y:
+                            # Si le haut du personnage touche un obstacle:
+                                self.y = (y + 1) * 30
+                                self.vel_y = 0
+                    
+
+                            
 
     def move(self):
         middleScreen = screenWidth / 2
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and self.can_jump:
-            print(self.worldY)
+        self.keys = pygame.key.get_pressed()
+        if self.keys[pygame.K_SPACE] and self.can_jump:
+            self.vel_y = self.jumpSpeed
             self.can_jump = False
-            self.y = 200
-        if keys[pygame.K_q]:
+        if self.keys[pygame.K_q]:
             print(self.worldX)
             if self.x <= middleScreen - 400:
-                world.x += 600 * dt
+                world.x += self.speed * dt
                 self.x = self.x
             if self.x <= world.x:
                 self.x = world.x
             if self.x > middleScreen - 400:
-                self.x -= 600 * dt
-        if keys[pygame.K_d]:
+                self.x -= self.speed * dt
+        if self.keys[pygame.K_d]:
             print(self.worldX)
             if self.x >= middleScreen + 400:
-                world.x -= 600 * dt
+                world.x -= self.speed * dt
                 self.x = self.x
             if self.x < middleScreen + 400:
-                self.x += 600 * dt
+                self.x += self.speed * dt
 
 
 
@@ -142,7 +162,7 @@ while running:
 
     world.draw()
     player.draw()
-    player.gravity()
+    player.setGravity()
     player.move()
 
     clock.tick(60) 
