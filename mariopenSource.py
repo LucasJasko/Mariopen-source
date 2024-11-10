@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-from mapobjects import mapObjects
+from map import mapObjects, mapChunks
 
 pygame.init()
 screen = pygame.display.set_mode((1720, 980))
@@ -20,8 +20,7 @@ class World:
         self.height = screen.get_height()
         self.width = 0
         self.worldHeight = 33
-        self.worldChunckAmount = 10
-        self.worldChunckIndex = 0
+        self.chunckAmount = 10
         self.chuckWidth = 58
         self.gravity = 0.9
         self.scrollSpeed = 6
@@ -37,8 +36,9 @@ class World:
                     self.pattern[y] += mapObjects[0]  
             else:
                 self.pattern[y] += [1] * self.chuckWidth
-
-
+    
+    def setChunks(self, index):
+            self.pattern = mapChunks[index]
             
     def draw(self):
         for y in range(len(self.pattern)):
@@ -55,7 +55,7 @@ class World:
 class Character:
 
     def __init__(self, image, x, y):
-        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(pygame.image.load(image), (30, 60)) 
         self.height = self.image.get_height()
         self.width = self.image.get_width()
         self.x = x
@@ -94,7 +94,8 @@ class Character:
                             # Si le haut du personnage touche un obstacle:
                             if self.worldY == y:
                                 self.y = (y + 1) * 30
-                                self.vel_y = 0              
+                                self.vel_y = 0
+                        
 
     def move(self):
         middleScreen = screenWidth / 2
@@ -117,6 +118,8 @@ class Character:
                 self.x -= self.initSpeed
                 if self.x <= 0:
                     self.x = 0
+            if world.pattern[self.worldY + 1][self.worldX - 1] == 1:
+                self.x = self.worldX * 30 + self.worldwidth
         elif self.keys[pygame.K_d]:
             self.initSpeed = self.initSpeed * 1.1
             if self.initSpeed >= self.capSpeed:
@@ -132,17 +135,24 @@ class Character:
                 self.x += self.initSpeed
                 if self.x + self.width >= screenWidth:
                     self.x = self.x - self.width
+            if world.pattern[self.worldY + 1][self.worldX + 1] == 1:
+                self.x = self.worldX * 30 + self.worldwidth
         else:
             self.initSpeed = 1
 
 world = World(0, 0)
-for i in range(0, world.worldChunckAmount * 1740, 1740):
-    world.randomise()
+for i in range(0, world.chunckAmount * 1740, 1740):
+    if i == 0:
+        world.setChunks('0')
+    elif i == 1740:
+        world.setChunks('1')
+    elif i > 1740:
+        world.randomise()
     world.width += 1740
-    world.worldChunckIndex += 1
-print(world.pattern)
-player = Character("assets/img/Ark.gif", 100, 868)
 
+player = Character("assets/img/Ark.gif", 100, 100)
+
+print(player.width)
 
 running = True
 while running:
@@ -156,6 +166,7 @@ while running:
     screen.blit(background, (0, 0))
 
 
+    
     world.draw()
     player.draw()
     player.setGravity()
